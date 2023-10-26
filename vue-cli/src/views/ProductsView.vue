@@ -1,5 +1,24 @@
 <template>
-  <div>
+  <main class="wrapper">
     <h1>Products</h1>
-  </div>
+
+    <div class="card-container">
+      <ProductCard
+        v-for="product in inventory"
+        :product="product"
+        :addToCart="addToCart"
+      ></ProductCard>
+    </div>
+  </main>
 </template>
+
+<script>
+import ProductCard from '@/components/ProductCard.vue'
+
+export default {
+  props: ['inventory', 'addToCart'],
+  components: {
+    ProductCard
+  }
+}
+</script>

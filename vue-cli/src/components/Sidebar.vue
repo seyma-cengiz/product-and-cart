@@ -6,7 +6,7 @@
           Cart
           <i class="icofont-cart-alt icofont-1x"></i>
         </span>
-        <button class="cart-close" @click="toggle">&times;</button>
+        <button class="cart-close" @click="toggleSidebar">&times;</button>
       </h1>
 
       <div class="cart-body">
@@ -23,7 +23,7 @@
           </thead>
           <tbody>
             <tr v-for="(item, index) in cart" :key="index">
-              <td><i class="icofont-carrot icofont-3x"></i></td>
+              <td><i :class="getIcon(item.id)"></i></td>
               <td>{{ item.name }}</td>
               <td>${{ item.price }}</td>
               <td class="center">{{ item.quantity }}</td>
@@ -31,7 +31,7 @@
               <td class="center">
                 <button
                   class="btn btn-light cart-remove"
-                  @click="remove(item.id)"
+                  @click="removeItem(item.id)"
                 >
                   &times;
                 </button>
@@ -52,7 +52,7 @@
 
 <script>
 export default {
-  props: ['toggle', 'cart', 'inventory', 'remove'],
+  props: ['toggleSidebar', 'cart', 'inventory', 'removeItem'],
   computed: {
     calculateCart() {
       return this.cart
@@ -65,6 +65,10 @@ export default {
   methods: {
     getItemTotal(item) {
       return (item.quantity * item.price).toFixed(2)
+    },
+    getIcon(id) {
+      var item = this.inventory.find((x) => x.id == id)
+      return 'icofont-3x icofont-' + item.icon
     }
   }
 }

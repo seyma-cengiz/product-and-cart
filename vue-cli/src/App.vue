@@ -22,10 +22,10 @@
 
   <Sidebar
     v-if="showSidebar"
-    :toggle="toggleSidebar"
+    :toggleSidebar="toggleSidebar"
     :cart="cart"
     :inventory="inventory"
-    :remove="removeItem"
+    :removeItem="removeItem"
   />
 </template>
 
@@ -62,9 +62,14 @@ export default {
           quantity: inventoryItem.quantity,
           price: inventoryItem.price.USD
         })
-      else cartItem.quantity += inventoryItem.quantity
-
+      else {
+        cartItem.quantity += inventoryItem.quantity
+      }
       inventoryItem.quantity = 0
+    },
+    removeItem(id) {
+      var idx = this.cart.findIndex((x) => x.id == id)
+      this.cart.splice(idx, 1)
     }
   },
   components: {
